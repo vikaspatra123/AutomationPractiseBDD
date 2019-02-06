@@ -93,8 +93,10 @@ public class StepDefinitions {
     @When("^User selects T-shirt tab$")
     public void userSelectsTshirtTab() {
         //WebElement tshirtTab = driver.findElement(By.xpath("//a[contains(text(), 'Women')]/following-sibling::ul[@class='submenu-container clearfix first-in-line-xs']//a[contains(text(), 'T-shirts')]"));
-        WebElement tshirtTab = driver.findElement(By.xpath("//a[@href='http://automationpractice.com/index.php?id_category=5&controller=category']"));
-        tshirtTab.click();
+        WebElement tshirtTab = driver.findElement(By.xpath("//div[@id='block_top_menu']//ul[@class='submenu-container clearfix first-in-line-xs']//a[contains(text(), 'T-shirts')]"));
+        //driver.findElement(By.xpath("//a[@href='http://automationpractice.com/index.php?id_category=5&controller=category']"));
+        //tshirtTab.click();
+        Assert.assertTrue(tshirtTab.isDisplayed());
     }
 
     @Then("^User will be navigated to Tshirt page$")

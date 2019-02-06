@@ -16,41 +16,19 @@ Feature: User login in Automation Practise website
 
 
    # @smoke @invalidLogin
-  Scenario Outline: User gets an error message, in the case of a empty field
+  Scenario Outline: User can see validation message for invalid credentials
     Given User is on the home page
-    When user selects the sign in link
+    When User selects the sign in link
     Then User should be in the login page
-    When User enters email as "" and password as "Password1"
+    When User enters email as "<username" and password as "<password"
     And User selects Sign in
-    Then User should see the "<error message>" message
-    Examples:
-      | error message             |
-      | An email address required |
+    Then User should see error message as "<error_message>"
 
-   # @smoke @invalidLogin
-  Scenario Outline: User gets an error message, in the case of empty fields
-    Given User is on the home page
-    When user selects the sign in link
-    Then User should be in the login page
-    When User enters email as "" and password as ""
-    And User selects Sign in
-    Then User should see the "<error message>" message
     Examples:
-      | error message             |
-      | An email address required |
-
-    #@smoke
-  @JP
-  Scenario Outline: User gets an error message, in the case of invalid login details
-    Given User is on the home page
-    When user selects the sign in link
-    Then User should be in the login page
-    When User enters email as "testaccount@mailinator.com" and password as "Pssword1"
-    And User selects Sign in
-    Then User should see the "<error message>" message
-    Examples:
-      | error message         |
-      | Authentication failed |
+      | username                   | password      | error_message              |
+      |                            |               | An email address required. |
+      | ghfth                      |               | Invalid email address.     |
+      | testaccount@mailinator.com | wrongpassword | Authentication failed.     |
 
   @smoke @shoppingcart
   Scenario Outline: User is able to add items in the shopping cart
