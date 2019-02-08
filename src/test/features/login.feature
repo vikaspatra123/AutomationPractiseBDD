@@ -7,7 +7,7 @@ Feature: User login in Automation Practise website
   @smoke @validLogin
   Scenario: User is able to login successfully using valid credentials
     Given User is on the home page
-    When user selects the sign in link
+    When User selects the sign in link
     Then User should be in the login page
     When User enters email as "testaccount@mailinator.com" and password as "Password1"
     And User selects Sign in
@@ -15,12 +15,12 @@ Feature: User login in Automation Practise website
     And User should see his name as "john smith"
 
 
-   # @smoke @invalidLogin
+  @vikas @invalidLogin
   Scenario Outline: User can see validation message for invalid credentials
     Given User is on the home page
     When User selects the sign in link
     Then User should be in the login page
-    When User enters email as "<username" and password as "<password"
+    When User enters email as "<username>" and password as "<password>"
     And User selects Sign in
     Then User should see error message as "<error_message>"
 
@@ -30,7 +30,7 @@ Feature: User login in Automation Practise website
       | ghfth                      |               | Invalid email address.     |
       | testaccount@mailinator.com | wrongpassword | Authentication failed.     |
 
-  @smoke @shoppingcart
+  #@smoke @shoppingcart
   Scenario Outline: User is able to add items in the shopping cart
     Given User is on the home page
     When user selects the sign in link

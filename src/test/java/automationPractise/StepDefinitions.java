@@ -13,6 +13,7 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.support.ui.Select;
 
+import javax.annotation.PostConstruct;
 import java.util.concurrent.TimeUnit;
 
 public class StepDefinitions {
@@ -29,14 +30,15 @@ public class StepDefinitions {
         driver.get(baseUrl);
         driver.manage().timeouts().implicitlyWait(20, TimeUnit.SECONDS);
 
+
     }
 
     //post conditions for test scenarios
     // close the browser
+    @After
+    public void quitBrowser() {
+        driver.close();
 
-    public void closeBrowser() {
-        //driver.close();
-        closeBrowser();
     }
 
     @Given("^User is on the home page$")
@@ -46,7 +48,7 @@ public class StepDefinitions {
 
     }
 
-    @When("^user selects the sign in link$")
+    @When("^User selects the sign in link$")
     public void userSelectsTheSignInLink() {
         driver.findElement(By.cssSelector(".login")).click();
 
@@ -82,7 +84,7 @@ public class StepDefinitions {
         Assert.assertTrue(name.equals(userName));
     }
 
-    @Then("^User should see the \"(.*)\" message$")
+    @Then("^User should see error message as \"(.*)\"$")
     public void userWillSeeErrorMessage(String errorMsg) {
         String diplayedMSG = driver.findElement(By.xpath("//div[@class='alert alert-danger']//li")).getText();
         System.out.println(diplayedMSG);
@@ -123,20 +125,23 @@ public class StepDefinitions {
         Select select = new Select(driver.findElement(By.xpath("//select[@id='group_1']")));
         select.selectByVisibleText(size);
     }
+
     @Then("^User verifies quantity \"(.*)\" and size has been updated$")
-    public void userverifiesUpdatesQuantityAndSize(String quantity){
+    public void userverifiesUpdatesQuantityAndSize(String quantity) {
         String displayQuantity = driver.findElement(By.id("quantity_wanted")).getAttribute("value");
         Assert.assertTrue(displayQuantity.equals(quantity));
         WebElement sizeM = driver.findElement(By.xpath("//select[@id='group_1']//option[@value='2']"));
         Assert.assertTrue(sizeM.isDisplayed());
 
     }
+
     @When("^User selects 'Add to cart'$")
-    public void userClicksOnAddToCartButton(){
-      driver.findElement(By.id("User selects 'Add to cart'")).click();
+    public void userClicksOnAddToCartButton() {
+        driver.findElement(By.id("User selects 'Add to cart'")).click();
     }
+
     @Then("^User will see the pop up window with the updated basket$")
-    public void userVerifiesUpdatedBasket(){
+    public void userVerifiesUpdatedBasket() {
         String successMessage = driver.findElement(By.xpath("//div[@class='layer_cart_product col-xs-12 col-md-6']")).getText();
         Assert.assertTrue(successMessage.contains("Product successfully added to your shopping cart"));
     }
